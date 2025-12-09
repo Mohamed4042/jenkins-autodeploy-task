@@ -12,15 +12,17 @@ pipeline {
             }
         }
 
-        stage('Install Firebase Tools') {
+        stage('Install Firebase Tools (local)') {
             steps {
-                bat 'npm install -g firebase-tools'
+                // install firebase-tools in this project (node_modules)
+                bat 'npm install firebase-tools'
             }
         }
 
         stage('Deploy to Firebase') {
             steps {
-                bat 'firebase deploy --token %FIREBASE_TOKEN%'
+                // use npx to run the local firebase binary
+                bat 'npx firebase deploy --token %FIREBASE_TOKEN%'
             }
         }
     }
